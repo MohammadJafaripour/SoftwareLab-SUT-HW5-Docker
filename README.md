@@ -106,9 +106,7 @@ Attaching to my-client-1, my-server-1
 
 بلافاصله پس از ایجاد کانتینرها، کلاینت با استفاده از نام سرویس سرور (`my-server`) که به عنوان DNS داخلی در شبکه داکر رزولوشین می‌شود، به آن متصل شده و ۵ درخواست را با موفقیت ارسال و پاسخ دریافت نمود:
 
-Bash
-
-```
+```Bash
 my-server-1  | 172.18.0.3 - - [13/Jun/2026 11:45:57] "GET / HTTP/1.1" 200 -
 my-server-1  | 172.18.0.3 - - [13/Jun/2026 11:46:00] "GET / HTTP/1.1" 200 -
 my-server-1  | 172.18.0.3 - - [13/Jun/2026 11:46:03] "GET / HTTP/1.1" 200 -
@@ -129,9 +127,7 @@ my-client-1 exited with code 0
 
 جهت اطمینان از صحت نگاشت پورت `8000:80` در فایل کامپوز، در سیستم میزبان با استفاده از خط فرمان و ابزار `curl` درخواستی به سرویس ارسال شد. دریافت وضعیت `200 OK` و متن پاسخ سرور داکر، نشان‌دهنده دسترسی صحیح لایه بیرونی به سرویس داخلی کانتینر است:
 
-Bash
-
-```
+```Bash
 PS C:\Users\mjafa\OneDrive\Documents\HW2\SoftwareLab\HW5> curl http://localhost:8000
 
 StatusCode        : 200
@@ -159,9 +155,7 @@ RawContentLength  : 61
 
 با اجرای دستور `docker logs hw5-my-client-1`، فرآیند اجرای کلاینت به طور مجزا بررسی شد که تایید می‌کند مکانیزم زمان‌بندی ۳ ثانیه‌ای و دریافت پاسخ به درستی پایان یافته و کانتینر با کد وضعیت صفر (موفقیت‌آمیز) خارج شده است:
 
-Bash
-
-```
+```Bash
 PS C:\Users\mjafa\OneDrive\Documents\HW2\SoftwareLab\HW5> docker logs hw5-my-client-1
 The client started. Attempting to connect to the server at address: http://my-server:80
 [Request 1] Response received from server: Hello! The answer was sent from the Docker server container.
@@ -175,9 +169,7 @@ The client started. Attempting to connect to the server at address: http://my-se
 
 برای دسترسی به ساختار درونی کانتینر سرور، ابتدا مشخصات آن با دستور `docker ps` استخراج گردید:
 
-Bash
-
-```
+```Bash
 PS C:\Users\mjafa\OneDrive\Documents\HW2\SoftwareLab\HW5> docker ps
 CONTAINER ID   IMAGE           COMMAND              CREATED          STATUS          PORTS                                     NAMES
 2e1402b4761b   hw5-my-server   "python server.py"   14 minutes ago   Up 14 minutes   0.0.0.0:8000->80/tcp, [::]:8000->80/tcp   hw5-my-server-1
@@ -185,9 +177,7 @@ CONTAINER ID   IMAGE           COMMAND              CREATED          STATUS     
 
 سپس با اجرای دستور تعاملی `docker exec` وارد کانتینر سرور شده و دستور `ls -la` را برای پایش وضعیت فایل‌های کپی‌شده اجرا کردیم:
 
-Bash
-
-```
+```Bash
 PS C:\Users\mjafa\OneDrive\Documents\HW2\SoftwareLab\HW> docker exec -it hw5-my-server-1 ls -la
 total 12
 drwxr-xr-x    1 root     root          4096 Jun 13 11:45 .
