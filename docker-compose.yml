@@ -3,15 +3,13 @@ version: "3.9"
 services:
   my-server:
     build:
-      context: .
-      dockerfile: server/Dockerfile
+      context: ./server
     ports:
       - "8000:80"
 
   my-client:
     build:
-      context: .
-      dockerfile: client/Dockerfile
+      context: ./client
     environment:
       - SERVER_HOST=my-server
     depends_on:
