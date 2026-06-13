@@ -1,10 +1,8 @@
 # HW5 Docker
 
-
 # phase 1
 
-
-``` bash
+```bash
 [+] up 5/5
  ✔ Image hw5-my-client       Built                                                            7.3s
  ✔ Image hw5-my-server       Built                                                            7.3s
@@ -28,28 +26,27 @@ my-client-1 exited with code 0
 
 ```
 
-
 # phase 2
 
 ## q1
 
-``` bash
+```bash
 PS C:\Users\mjafa\OneDrive\Documents\HW2\SoftwareLab\HW5> curl http://localhost:8000
 
 
 StatusCode        : 200
 StatusDescription : OK
 Content           : Hello! The answer was sent from the Docker server container.
-                    
+
 RawContent        : HTTP/1.0 200 OK
                     Content-Type: text/plain; charset=utf-8
                     Date: Sat, 13 Jun 2026 12:11:56 GMT
                     Server: BaseHTTP/0.6 Python/3.10.20
-                    
+
                     Hello! The answer was sent from the Docker server container.
-                    
+
 Forms             : {}
-Headers           : {[Content-Type, text/plain; charset=utf-8], [Date, Sat, 13 Jun 2026 12:11:56 
+Headers           : {[Content-Type, text/plain; charset=utf-8], [Date, Sat, 13 Jun 2026 12:11:56
                     GMT], [Server, BaseHTTP/0.6 Python/3.10.20]}
 Images            : {}
 InputFields       : {}
@@ -58,13 +55,9 @@ ParsedHtml        : mshtml.HTMLDocumentClass
 RawContentLength  : 61
 ```
 
-
-
 ## q2
 
-
-
-``` bash
+```bash
 PS C:\Users\mjafa\OneDrive\Documents\HW2\SoftwareLab\HW5> docker logs hw5-my-client-1
 The client started. Attempting to connect to the server at address: http://my-server:80
 [Request 1] Response received from server: Hello! The answer was sent from the Docker server container.
@@ -74,11 +67,9 @@ The client started. Attempting to connect to the server at address: http://my-se
 [Request 5] Response received from server: Hello! The answer was sent from the Docker server container.
 ```
 
-
-
 ## q3
 
- استفاده کنید، ابتدا باید نام یا ID کانتینرِ در حال اجرا را از طریق دستور `docker ps` پیدا کنید.
+استفاده کنید، ابتدا باید نام یا ID کانتینرِ در حال اجرا را از طریق دستور `docker ps` پیدا کنید.
 
 **مرحله اول: پیدا کردن نام یا ID کانتینر**
 
@@ -87,12 +78,11 @@ docker ps
 
 ```
 
-``` bash
+```bash
 PS C:\Users\mjafa\OneDrive\Documents\HW2\SoftwareLab\HW5> docker ps
 CONTAINER ID   IMAGE           COMMAND              CREATED          STATUS          PORTS                                     NAMES
 2e1402b4761b   hw5-my-server   "python server.py"   14 minutes ago   Up 14 minutes   0.0.0.0:8000->80/tcp, [::]:8000->80/tcp   hw5-my-server-1
 ```
-
 
 **مرحله دوم: اجرای دستور ورود و مشاهده فایل‌ها**
 
@@ -101,11 +91,16 @@ docker exec -it <container_name> ls -la
 
 ```
 
-
-``` bash
+```bash
 PS C:\Users\mjafa\OneDrive\Documents\HW2\SoftwareLab\HW> docker exec -it hw5-my-server-1 ls -la
 total 12
 drwxr-xr-x    1 root     root          4096 Jun 13 11:45 .
 drwxr-xr-x    1 root     root          4096 Jun 13 12:10 ..
 -rwxr-xr-x    1 root     root           693 Jun 13 11:34 server.py
 ```
+
+## پاسخ پرسش‌ها
+
+### ۱. وظیفه فایل docker-compose.yml چیست و چه زمانی به جای دستور docker run از آن استفاده می‌کنیم؟
+
+وظیفه این فایل، تعریف و مدیریت همزمان برنامه‌های چند کانتینری (Multi-container) به صورت ساختاریافته و Declarative است. زمانی که پروژه ما از چند سرویس وابسته به هم (مثل یک کلاینت، یک سرور و یک پایگاه داده) تشکیل شده باشد، به جای اجرای دستی چندین دستور طولانی `docker run` همراه با تنظیمات پیچیده شبکه و متغیرهای محیطی، از Docker Compose استفاده می‌کنیم تا کل معماری سیستم را در یک فایل متنی تنظیم کرده و کل پروژه را تنها با دستور `docker compose up` راه‌اندازی کنیم.
